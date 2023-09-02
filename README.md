@@ -27,4 +27,11 @@ Paper Link
 MIT
 
 # Citations
-
+```latex
+@misc{2308.16137,
+Author = {Chi Han and Qifan Wang and Wenhan Xiong and Yu Chen and Heng Ji and Sinong Wang},
+Title = {LM-Infinite: Simple On-the-Fly Length Generalization for Large Language Models},
+Year = {2023},
+Eprint = {arXiv:2308.16137},
+}
+```
