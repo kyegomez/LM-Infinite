@@ -1,18 +1,25 @@
 import torch
 from infinite.main import LMInfinite
 
+d_model = 512
+seq_len = 100
+n_global = 100
+l_pretrain = 50
 
-lm_infinite = LMInfinite(
-    n_global=10,
-    n_local=2048,
-    length_pretrain=2048
+
+#sample
+q = torch.randn(1, seq_len, d_model)
+k = torch.randn(1, seq_len, d_model)
+v = torch.randn(1, seq_len, d_model)
+
+
+#llm infinite mode
+model = LMInfinite(
+    d_model,
+    n_global,
+    l_pretrain
 )
 
-#sample data
-q = torch.rand(10, 32, 512) #shape = [sequence length, batch_size, feature_size]
-k = torch.rand(10, 32, 512) #shape = [sequence_length, batch_size, feature_size]
-
-#apply lambda attention mask and distance limit
-logit = lm_infinite(q, k)
-
-print(logit)
+#forwad pass
+output = model(q, k, v)
+print(output.shape)
