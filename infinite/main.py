@@ -33,9 +33,7 @@ class LMInfinite(nn.Module):
     
     def distance_limit(self, q, k):
         #cal distance between pair of tokens
-        d = torch.abs(
-            torch.arange(q.shape[0])
-            ).unsqueeze(0) - torch.arange(k.shape[0]).unsqueeze(1)
+        d = torch.abs(torch.arange(q.shape[0])).unsqueeze(0) - torch.arange(k.shape[0]).unsqueeze(1)
 
         #distance limit
         d = torch.clamp(d, max=self.length_pretrain)
@@ -52,7 +50,7 @@ class LMInfinite(nn.Module):
             d,
             dim=-1,
             keepdim=True
-        ).values
+        ).values.unsqueeze(-1) # add extra dimension
 
         return logit
     
@@ -65,6 +63,8 @@ class LMInfinite(nn.Module):
         logit = self.distance_limit(q, k)
 
         #mask to logit
-        logit = logit * mask.unsqueeze(-1)
+        logit = logit * mask#.unsqueeze(-1)
 
         return logit
+    
+
