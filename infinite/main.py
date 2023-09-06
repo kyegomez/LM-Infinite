@@ -48,7 +48,7 @@ class LMInfinite(nn.Module):
 
         #apply lambda mask
         mask = self.lambda_mask(seq_len)
-        logits = logits = mask.to(logits.device)
+        logits = logits + mask.to(logits.device)
 
         #attention weights
         weights = F.softmax(logits, dim=-1)
